@@ -73,6 +73,42 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         return newSong;
     }
 
+    public SongDatabase displaySongTag(String songId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = ("SELECT * FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
+
+        Log.i("query", selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+        Log.v("MYDB", "Table1 TABLE_NAME has " +
+                Integer.toString(c.getCount()) +
+                " rows");
+
+        for (int i = 0; i < c.getColumnCount(); i++) {
+            Log.v("MYDB", "Table1 TABLE_NAME has a column named " +
+                    c.getColumnName(i)
+            );
+        }
+        Log.d("Count",String.valueOf(c.getCount()));
+        if(c.getCount() > 0){
+            // get values from cursor here
+        }
+
+        if(c.getCount() == 0){
+            Log.i("user", "user does not exist");
+        }
+
+        if (c != null)
+            c.moveToFirst();
+        Log.i("hello", "hello");
+        SongDatabase newSong = new SongDatabase();
+        newSong.setSongTag(c.getString(c.getColumnIndex(SongDatabase.Table_Column_2_Tag)));
+        return newSong;
+    }
+
     public long createSongInDatabase(SongDatabase song) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -92,14 +128,14 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         String songId = song.getSongId();
-
         String insertQuery = ("songId = ?");
         contentValues.put(SongDatabase.Table_Column_2_Tag, tag);
         long songRow = db.update(SongDatabase.TABLE_NAME, contentValues, insertQuery, new String[] { songId });
 
         if (songRow > 0) {
-            Log.i("userRow", "datainserted");
+            Log.i("userRow", "datainserted" + songRow);
         }
+
         return songRow;
     }
 

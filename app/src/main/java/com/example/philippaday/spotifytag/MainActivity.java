@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
                         long insertingSong = mDbHelper.createSongInDatabase(song);
                         songTitle.setText(track.name);
                         addTag(track);
-                        mDbHelper.displaySong(track.uri);
-                        //TEST
                     }
                 });
     }
@@ -95,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
                 String addedTag = editView.getText().toString();
                 if(!addedTag.isEmpty()) {
                     SongDatabase song = new SongDatabase();
-                    song.setSongId(track.uri);
                     mDbHelper.addTagToSong(song, addedTag);
-                    Log.d("ADDED", "ADDED");
+                    Log.d("ADDED", "ADDED" + addedTag);
+                    tagName.setText(addedTag);
                 }
             }
         });
