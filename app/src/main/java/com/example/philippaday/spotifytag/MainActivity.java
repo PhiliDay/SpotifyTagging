@@ -16,13 +16,14 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.types.Track;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "d9abadc69fbb46239385d025042d8c02";
     private static final String REDIRECT_URI = "com.yourdomain.yourapp://callback";
     private SpotifyAppRemote mSpotifyAppRemote;
     SpotifyDbHelper mDbHelper = new SpotifyDbHelper(this);
-    TextView songTitle;
+    TextView songTitle, tagName;
     EditText editView;
     Button button;
     String tag;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         SongDatabase song = new SongDatabase(track.uri, track.name, tag);
                         long insertingSong = mDbHelper.createSongInDatabase(song);
                         songTitle.setText(track.name);
-                      //  addTag(track);
+                        addTag(track);
                         mDbHelper.displaySong(track.uri);
                     }
                 });
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     SongDatabase song = new SongDatabase();
                     song.setSongId(track.uri);
                     mDbHelper.addTagToSong(song, addedTag);
+                    Log.d("ADDED", "ADDED");
                 }
             }
         });
@@ -104,5 +106,6 @@ public class MainActivity extends AppCompatActivity {
         button = (Button)findViewById(R.id.button);
         editView = (EditText)findViewById(R.id.editView);
         songTitle = (TextView)findViewById(R.id.textView);
+        tagName = (TextView)findViewById(R.id.tagName);
     }
 }

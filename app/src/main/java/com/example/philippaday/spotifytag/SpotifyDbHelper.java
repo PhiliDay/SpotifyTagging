@@ -93,10 +93,9 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         String songId = song.getSongId();
 
-
-        String insertQuery = ("INSERT " + tag + "INTO " + SongDatabase.TABLE_NAME + " WHERE songId = ?");
+        String insertQuery = ("songId = ?");
         contentValues.put(SongDatabase.Table_Column_2_Tag, tag);
-        long songRow = db.update(SongDatabase.TABLE_NAME, null, insertQuery, new String[] { songId });
+        long songRow = db.update(SongDatabase.TABLE_NAME, contentValues, insertQuery, new String[] { songId });
 
         if (songRow > 0) {
             Log.i("userRow", "datainserted");
