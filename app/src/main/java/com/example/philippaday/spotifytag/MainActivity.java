@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         songTitle.setText(track.name);
                         addTag(track);
                         mDbHelper.displaySong(track.uri);
+                        //TEST
                     }
                 });
     }
