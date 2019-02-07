@@ -1,5 +1,6 @@
 package com.example.philippaday.spotifytag;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -78,17 +79,21 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MainActivity", track.name + " by " + track.artist.name);
                         SongDatabase song = new SongDatabase(track.uri, track.name, tag);
                         long insertingSong = mDbHelper.createSongInDatabase(song);
+                        songTitle.setText(track.name);
+                      //  addTag(track);
+                        mDbHelper.displaySong(track.uri);
                     }
                 });
     }
 
-    private void addTag() {
+    private void addTag(Track track) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String addedTag = editView.getText().toString();
                 if(!addedTag.isEmpty()) {
                     SongDatabase song = new SongDatabase();
+                    song.setSongId(track.uri);
                     mDbHelper.addTagToSong(song, addedTag);
                 }
             }

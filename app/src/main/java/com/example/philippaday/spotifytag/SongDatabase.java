@@ -20,10 +20,9 @@ public class SongDatabase {
 
     // Create table SQL query
     public static final String CREATE_TABLE="CREATE TABLE IF NOT EXISTS "+TABLE_NAME+" ("
-            //  +Table_Column_ID+" VARCHAR, "
-            + Table_Column_ID+" VARCHAR, NOT NULL, PRIMARY KEY,"
+            + Table_Column_ID+" VARCHAR, "
             +Table_Column_1_Name+" VARCHAR, "
-            +Table_Column_2_Tag+"VARCHAR)";
+            +Table_Column_2_Tag+" VARCHAR)";
 
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
