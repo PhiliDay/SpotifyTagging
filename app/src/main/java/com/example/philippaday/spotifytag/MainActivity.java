@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
                         Log.d("MainActivity", "Connected! Yay!");
-
                         // Now you can start interacting with App Remote
                         connected();
 
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
                     public void onFailure(Throwable throwable) {
                         Log.e("MyActivity", throwable.getMessage(), throwable);
-
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 });

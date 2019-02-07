@@ -42,7 +42,7 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
     public SongDatabase displaySong(String songId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = ("SELECT * FROM " + SpotifyDatabase.FeedEntry.TABLE_NAME + " WHERE songId = '" + songId +"' ");
+        String selectQuery = ("SELECT * FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
 
         Log.i("query", selectQuery);
 
