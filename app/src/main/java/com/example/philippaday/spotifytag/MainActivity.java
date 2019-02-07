@@ -33,12 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setViews() {
-        button = (Button)findViewById(R.id.button);
-        editView = (EditText)findViewById(R.id.editView);
-        songTitle = (TextView)findViewById(R.id.textView);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -94,9 +88,18 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SongDatabase song = new SongDatabase();
-                mDbHelper.addTagToSong(song, tag);
+                String addedTag = editView.getText().toString();
+                if(!addedTag.isEmpty()) {
+                    SongDatabase song = new SongDatabase();
+                    mDbHelper.addTagToSong(song, addedTag);
+                }
             }
         });
+    }
+
+    private void setViews() {
+        button = (Button)findViewById(R.id.button);
+        editView = (EditText)findViewById(R.id.editView);
+        songTitle = (TextView)findViewById(R.id.textView);
     }
 }
