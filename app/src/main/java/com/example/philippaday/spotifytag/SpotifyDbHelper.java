@@ -127,20 +127,12 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
     public long addTagToSong(SongDatabase song, String tag) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        String songId = song.getSongId();
         String insertQuery = ("songId = ?");
         contentValues.put(SongDatabase.Table_Column_2_Tag, tag);
-        long songRow = db.update(SongDatabase.TABLE_NAME, contentValues, insertQuery, new String[] { songId });
-
-        if (songRow > 0) {
-            Log.i("userRow", "datainserted" + songRow);
-        }
+        song.setSongTag(tag);
+        
+        long songRow = db.update(SongDatabase.TABLE_NAME, contentValues, insertQuery, new String[] { tag });
 
         return songRow;
     }
-
-
-
-
-
 }
