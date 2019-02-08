@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void connected() {
-        // Play a playlist
-       // mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
         // Subscribe to PlayerState
         mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
@@ -102,10 +100,11 @@ public class MainActivity extends AppCompatActivity {
                     if (track != null) {
 
                         Log.d("MainActivity", track.name + " by " + track.artist.name);
-                        SongDatabase song = new SongDatabase(track.uri, track.name, tag);
-                        long insertingSong = mDbHelper.createSongInDatabase(song);
-                        songTitle.setText(track.name);
-                        addTag(track);
+                        SongDatabase song = new SongDatabase(track.uri, track.name, tag, track.album, track.imageUri, track.artist);
+                        songTitle.setText(song.getSongName());
+                        mDbHelper.createSongInDatabase(song);
+                        Log.d("MainActivity2", song.getSongName());
+                        addTag();
                         mSpotifyAppRemote.getImagesApi()
                                 .getImage(playerState.track.imageUri, Image.Dimension.LARGE)
                                 .setResultCallback(bitmap -> {
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void addTag(Track track) {
+    private void addTag() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

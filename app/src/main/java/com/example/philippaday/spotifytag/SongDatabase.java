@@ -3,6 +3,8 @@ package com.example.philippaday.spotifytag;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.spotify.protocol.types.Album;
+import com.spotify.protocol.types.Artist;
 import com.spotify.protocol.types.ImageUri;
 
 /* Class to create the user table - contains getters and setters */
@@ -15,18 +17,16 @@ public class SongDatabase {
     public static final String Table_Column_1_Name="songName";
     public static final String Table_Column_2_Tag="songTag";
     public static final String Table_Column_3_Album="songAlbum";
-    public static final String Table_Column_4_Playlist="songPlaylist";
-    public static final String Table_Column_5_ImageUri="imageUri";
-    public static final String Table_Column_6_songArtist="songArtist";
+    public static final String Table_Column_4_ImageUri="imageUri";
+    public static final String Table_Column_5_songArtist="songArtist";
 
 
     String songId;
     String songName;
     String songTag;
-    String songAlbum;
-    String songPlaylist;
+    Album songAlbum;
     ImageUri imageUri;
-    String songArtist;
+    Artist songArtist;
 
 
     // Create table SQL query
@@ -35,9 +35,8 @@ public class SongDatabase {
             +Table_Column_1_Name+" VARCHAR, "
             +Table_Column_2_Tag+" VARCHAR, "
             +Table_Column_3_Album+" VARCHAR, "
-            +Table_Column_4_Playlist+" VARCHAR, "
-            +Table_Column_5_ImageUri+" VARCHAR, "
-            +Table_Column_6_songArtist+" VARCHAR)";
+            +Table_Column_4_ImageUri+" VARCHAR, "
+            +Table_Column_5_songArtist+" VARCHAR)";
 
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -46,13 +45,11 @@ public class SongDatabase {
 
     }
 
-    public SongDatabase(String songId, String songName, String songTag, String songAlbum, String songPlaylist, ImageUri imageUri, String songArtist) {
-        // this.userId = userId;
+    public SongDatabase(String songId, String songName, String songTag, Album songAlbum, ImageUri imageUri, Artist songArtist) {
         this.songId = songId;
         this.songName = songName;
         this.songTag = songTag;
         this.songAlbum = songAlbum;
-        this.songPlaylist = songPlaylist;
         this.imageUri = imageUri;
         this.songArtist = songArtist;
     }
@@ -78,27 +75,19 @@ public class SongDatabase {
         return songTag;
     }
 
-    public void setSongAlbum(String songAlbum) {
+    public void setSongAlbum(Album songAlbum) {
         this.songAlbum = songAlbum;
     }
 
-    public String getSongAlbum() {
+    public Album getSongAlbum() {
         return songAlbum;
     }
 
-    public void setSongPlaylist(String songPlaylist) {
-        this.songPlaylist = songPlaylist;
-    }
-
-    public String getSongPlaylist() {
-        return songPlaylist;
-    }
-
-    public void setSongArtist(String songArtist) {
+    public void setSongArtist(Artist songArtist) {
         this.songArtist = songArtist;
     }
 
-    public String getSongArtist() {
+    public Artist getSongArtist() {
         return songArtist;
     }
 

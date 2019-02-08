@@ -115,16 +115,32 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
     public long createSongInDatabase(SongDatabase song) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        long emptyRow=0;
 
         contentValues.put(SongDatabase.Table_Column_ID, song.getSongId());
         contentValues.put(SongDatabase.Table_Column_1_Name, song.getSongName());
         contentValues.put(SongDatabase.Table_Column_2_Tag, song.getSongTag());
-        long songRow = db.insert(SongDatabase.TABLE_NAME, null, contentValues);
+        contentValues.put(SongDatabase.Table_Column_3_Album, song.getSongAlbum().toString());
+        contentValues.put(SongDatabase.Table_Column_4_ImageUri, song.getSongUri().toString());
+        contentValues.put(SongDatabase.Table_Column_5_songArtist, song.getSongArtist().toString());
+         if(isUnique(song.getSongId())) {
+             long songRow = db.insert(SongDatabase.TABLE_NAME, null, contentValues);
+             return songRow;
+         } else {
+            long emptyRow = db.query()
+         }
+       // return emptyRow;
+    }
 
-        if (songRow > 0) {
-            Log.i("songRow", "datainserted");
-        }
-        return songRow;
+    public boolean isUnique(String songId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = ("SELECT * FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { songId });
+
+        if (cursor != null && cursor.getCount()>0) {
+            return true;
+            }
+        return false;
     }
 
     public long addTagToSong(SongDatabase song, String tag) {
