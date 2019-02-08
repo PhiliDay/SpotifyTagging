@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class SpotifyDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
 
@@ -34,7 +36,7 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public SongDatabase displaySong(String songId) {
+    public SongDatabase displayAllSongDetails(String songId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = ("SELECT * FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
@@ -82,7 +84,7 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
-
+        //Debugging purposes
         Log.v("MYDB", "Table1 TABLE_NAME has " +
                 Integer.toString(c.getCount()) +
                 " rows");
@@ -103,10 +105,9 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
 
         if (c != null)
             c.moveToFirst();
-        Log.i("hello", "hello");
         //This only displays first tag, need to update this when gets more complex
         String tag = c.getString(0);
-        Log.i("tag", "tagging" + tag);
+        Log.i("displaySongTag", "tagging" + tag);
 
         return tag;
     }
@@ -121,7 +122,7 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         long songRow = db.insert(SongDatabase.TABLE_NAME, null, contentValues);
 
         if (songRow > 0) {
-            Log.i("userRow", "datainserted");
+            Log.i("songRow", "datainserted");
         }
         return songRow;
     }

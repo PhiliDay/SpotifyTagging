@@ -3,4 +3,8 @@
     <string name="add_tag">Add Tag</string>
     <string name="track_name">Track Name</string>
     <string name="tag_name">Tag Name</string>
+    <string name="image">Image</string>
+    <string name="image_label">Image Label</string>
+
+
 </resources>
