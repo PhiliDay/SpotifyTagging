@@ -73,10 +73,10 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         return newSong;
     }
 
-    public SongDatabase displaySongTag(String songId) {
+    public String displaySongTag(String songId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = ("SELECT * FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
+        String selectQuery = ("SELECT songTag FROM " + SongDatabase.TABLE_NAME + " WHERE songId = '" + songId +"' ");
 
         Log.i("query", selectQuery);
 
@@ -104,9 +104,11 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         if (c != null)
             c.moveToFirst();
         Log.i("hello", "hello");
-        SongDatabase newSong = new SongDatabase();
-        newSong.setSongTag(c.getString(c.getColumnIndex(SongDatabase.Table_Column_2_Tag)));
-        return newSong;
+        //This only displays first tag, need to update this when gets more complex
+        String tag = c.getString(0);
+        Log.i("tag", "tagging" + tag);
+
+        return tag;
     }
 
     public long createSongInDatabase(SongDatabase song) {
@@ -130,7 +132,7 @@ public class SpotifyDbHelper extends SQLiteOpenHelper {
         String insertQuery = ("songId = ?");
         contentValues.put(SongDatabase.Table_Column_2_Tag, tag);
         song.setSongTag(tag);
-        
+
         long songRow = db.update(SongDatabase.TABLE_NAME, contentValues, insertQuery, new String[] { tag });
 
         return songRow;

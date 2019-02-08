@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     SongDatabase song = new SongDatabase();
                     mDbHelper.addTagToSong(song, addedTag);
                     Log.d("ADDED", "ADDED" + addedTag);
-                    tagName.setText(addedTag);
+                    tagName.setText(mDbHelper.displaySongTag(track.uri).toString());
                 }
             }
         });
